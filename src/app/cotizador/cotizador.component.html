@@ -1,46 +1,54 @@
-<h2>Cotizador de envíos</h2>
+<div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+  <h4 class="text-center mb-4">COTIZADOR DE ENVIOS</h4>
 
-<form (ngSubmit)="cotizar()" #f="ngForm" class="grid">
-  <label>
-    País destino (ISO-2)
-    <input name="paisDestino" [(ngModel)]="data.paisDestino" required maxlength="2">
-  </label>
+  <form (ngSubmit)="cotizar()" #f="ngForm" class="row g-3">
+    <div class="col-12">
+      <label class="form-label">Pais destino:</label>
+      <select class="form-select" name="paisDestino" [(ngModel)]="data.paisDestino" required>
+        <option *ngFor="let p of paises" [value]="p.codigoIso">{{ p.nombre }}</option>
+      </select>
+    </div>
 
-  <label>
-    Peso (kg)
-    <input type="number" name="peso" [(ngModel)]="data.peso" step="0.01" required>
-  </label>
+    <div class="col-6">
+      <label class="form-label">Peso (kg)</label>
+      <input type="number" class="form-control" name="peso" [(ngModel)]="data.peso" required step="0.01">
+    </div>
+    <div class="col-6">
+      <label class="form-label">Alto (cm)</label>
+      <input type="number" class="form-control" name="alto" [(ngModel)]="data.alto" required>
+    </div>
+    <div class="col-6">
+      <label class="form-label">Largo (cm)</label>
+      <input type="number" class="form-control" name="largo" [(ngModel)]="data.largo" required>
+    </div>
+    <div class="col-6">
+      <label class="form-label">Ancho (cm)</label>
+      <input type="number" class="form-control" name="ancho" [(ngModel)]="data.ancho" required>
+    </div>
 
-  <label>
-    Alto (cm)
-    <input type="number" name="alto" [(ngModel)]="data.alto" required>
-  </label>
+    <div class="col-12">
+      <label class="form-label">Cliente:</label>
+      <select class="form-select" name="clienteId" [(ngModel)]="data.clienteId">
+        <option value="">-- Seleccione cliente --</option>
+        <option *ngFor="let c of clientes" [value]="c.id">{{ c.nombre }}</option>
+      </select>
+    </div>
 
-  <label>
-    Largo (cm)
-    <input type="number" name="largo" [(ngModel)]="data.largo" required>
-  </label>
+    <div class="col-12 text-center mt-3">
+      <button type="submit" class="btn btn-primary w-100" [disabled]="f.invalid || loading">
+        {{ loading ? 'Calculando...' : 'Cotizar' }}
+      </button>
+    </div>
+  </form>
 
-  <label>
-    Ancho (cm)
-    <input type="number" name="ancho" [(ngModel)]="data.ancho" required>
-  </label>
+  <div *ngIf="resultado" class="alert alert-light border mt-4">
+    <h6 class="mb-3 text-center">Resultado</h6>
+    <p><b>Tarifa región:</b> {{ resultado.tarifaRegion | number:'1.2-2' }}</p>
+    <p><b>Descuento aplicado:</b> {{ resultado.descuentoAplicado | number:'1.2-2' }} %</p>
+    <p><b>Total:</b> {{ resultado.total | number:'1.2-2' }}</p>
+  </div>
 
-  <label>
-    Cliente ID (opcional)
-    <input type="number" name="clienteId" [(ngModel)]="data.clienteId">
-  </label>
-
-  <button type="submit" [disabled]="f.invalid || loading">Cotizar</button>
-</form>
-
-<div *ngIf="loading" class="mt">Calculando…</div>
-<div *ngIf="error" class="mt error">Error: {{ error }}</div>
-
-<div *ngIf="resultado" class="mt card">
-  <h3>Resultado</h3>
-  <p><b>Tarifa región:</b> {{ resultado.tarifaRegion | number:'1.2-2' }}</p>
-  <p><b>Descuento aplicado:</b> {{ resultado.descuentoAplicado | number:'1.2-2' }} %</p>
-  <p><b>Total:</b> {{ resultado.total | number:'1.2-2' }}</p>
+  <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+    ⚠️ {{ error }}
+  </div>
 </div>
-

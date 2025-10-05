@@ -1,31 +1,29 @@
-.grid {
-  display: grid;
-  gap: 10px;
-  max-width: 420px;
-}
-label {
-  display: grid;
-  gap: 4px;
-  font-size: 14px;
-}
-input {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-button {
-  padding: 10px 12px;
-  border: 0;
-  border-radius: 10px;
-  background: #2d6cdf;
-  color: white;
-  cursor: pointer;
-}
-.mt { margin-top: 12px; }
-.error { color: #b00020; }
 .card {
-  padding: 12px;
-  border: 1px solid #eee;
   border-radius: 12px;
-  background: #fafafa;
+  border: none;
+  background-color: #ffffff;
+}
+
+h4 {
+  font-weight: 600;
+  color: #222;
+}
+
+label {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0d6efd;
+  opacity: 0.9;
+}
+
+.alert {
+  border-radius: 10px;
+  font-size: 0.9rem;
 }
