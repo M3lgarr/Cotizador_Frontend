@@ -1,0 +1,46 @@
+<h2>Cotizador de envíos</h2>
+
+<form (ngSubmit)="cotizar()" #f="ngForm" class="grid">
+  <label>
+    País destino (ISO-2)
+    <input name="paisDestino" [(ngModel)]="data.paisDestino" required maxlength="2">
+  </label>
+
+  <label>
+    Peso (kg)
+    <input type="number" name="peso" [(ngModel)]="data.peso" step="0.01" required>
+  </label>
+
+  <label>
+    Alto (cm)
+    <input type="number" name="alto" [(ngModel)]="data.alto" required>
+  </label>
+
+  <label>
+    Largo (cm)
+    <input type="number" name="largo" [(ngModel)]="data.largo" required>
+  </label>
+
+  <label>
+    Ancho (cm)
+    <input type="number" name="ancho" [(ngModel)]="data.ancho" required>
+  </label>
+
+  <label>
+    Cliente ID (opcional)
+    <input type="number" name="clienteId" [(ngModel)]="data.clienteId">
+  </label>
+
+  <button type="submit" [disabled]="f.invalid || loading">Cotizar</button>
+</form>
+
+<div *ngIf="loading" class="mt">Calculando…</div>
+<div *ngIf="error" class="mt error">Error: {{ error }}</div>
+
+<div *ngIf="resultado" class="mt card">
+  <h3>Resultado</h3>
+  <p><b>Tarifa región:</b> {{ resultado.tarifaRegion | number:'1.2-2' }}</p>
+  <p><b>Descuento aplicado:</b> {{ resultado.descuentoAplicado | number:'1.2-2' }} %</p>
+  <p><b>Total:</b> {{ resultado.total | number:'1.2-2' }}</p>
+</div>
+
